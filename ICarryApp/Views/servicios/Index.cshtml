@@ -1,0 +1,69 @@
+﻿@model IEnumerable<ICarryApp.Models.servicio>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.descripcionServicio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.carga)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.direccionCague)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.direccionEntrega)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.costo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.persona.nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.transportador1.vehiculo)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.descripcionServicio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.carga)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.direccionCague)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.direccionEntrega)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.costo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.persona.nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.transportador1.vehiculo)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,74 @@
+﻿@model ICarryApp.Models.servicio
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>servicio</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.descripcionServicio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.descripcionServicio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.carga)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.carga)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.direccionCague)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.direccionCague)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.direccionEntrega)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.direccionEntrega)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.costo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.costo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.persona.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.persona.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.transportador1.vehiculo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.transportador1.vehiculo)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

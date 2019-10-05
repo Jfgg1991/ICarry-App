@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ICarryAppDBModelStoreContainer" CdmEntityContainer="ICarryAppDBEntities">
+    <EntitySetMapping Name="persona">
+      <EntityTypeMapping TypeName="ICarryAppDBModel.persona">
+        <MappingFragment StoreEntitySet="persona">
+          <ScalarProperty Name="cedula" ColumnName="cedula" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="apellidos" ColumnName="apellidos" />
+          <ScalarProperty Name="direccionPrincipal" ColumnName="direccionPrincipal" />
+          <ScalarProperty Name="fechaNacimiento" ColumnName="fechaNacimiento" />
+          <ScalarProperty Name="usuario" ColumnName="usuario" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="servicio">
+      <EntityTypeMapping TypeName="ICarryAppDBModel.servicio">
+        <MappingFragment StoreEntitySet="servicio">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="descripcionServicio" ColumnName="descripcionServicio" />
+          <ScalarProperty Name="cliente" ColumnName="cliente" />
+          <ScalarProperty Name="transportador" ColumnName="transportador" />
+          <ScalarProperty Name="carga" ColumnName="carga" />
+          <ScalarProperty Name="direccionCague" ColumnName="direccionCague" />
+          <ScalarProperty Name="direccionEntrega" ColumnName="direccionEntrega" />
+          <ScalarProperty Name="costo" ColumnName="costo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="transportador">
+      <EntityTypeMapping TypeName="ICarryAppDBModel.transportador">
+        <MappingFragment StoreEntitySet="transportador">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="cedula" ColumnName="cedula" />
+          <ScalarProperty Name="vehiculo" ColumnName="vehiculo" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="usuario">
+      <EntityTypeMapping TypeName="ICarryAppDBModel.usuario">
+        <MappingFragment StoreEntitySet="usuario">
+          <ScalarProperty Name="usuario1" ColumnName="usuario" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="Rol" ColumnName="Rol" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vehiculo">
+      <EntityTypeMapping TypeName="ICarryAppDBModel.vehiculo">
+        <MappingFragment StoreEntitySet="vehiculo">
+          <ScalarProperty Name="Placa" ColumnName="Placa" />
+          <ScalarProperty Name="numeroChasis" ColumnName="numeroChasis" />
+          <ScalarProperty Name="tecnomecanica" ColumnName="tecnomecanica" />
+          <ScalarProperty Name="permisoCarga" ColumnName="permisoCarga" />
+          <ScalarProperty Name="capacidadCarga" ColumnName="capacidadCarga" />
+          <ScalarProperty Name="descripcionVehiculo" ColumnName="descripcionVehiculo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

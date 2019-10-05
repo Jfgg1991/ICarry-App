@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ICarryAppDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="persona">
+    <Key>
+      <PropertyRef Name="cedula" />
+    </Key>
+    <Property Name="cedula" Type="Int32" Nullable="false" />
+    <Property Name="nombre" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+    <Property Name="apellidos" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+    <Property Name="direccionPrincipal" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="fechaNacimiento" Type="DateTime" Precision="0" />
+    <Property Name="usuario" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="usuario1" Relationship="Self.FK__persona__usuario__3F466844" FromRole="persona" ToRole="usuario" />
+    <NavigationProperty Name="transportador" Relationship="Self.FK__transport__cedul__4222D4EF" FromRole="persona" ToRole="transportador" />
+    <NavigationProperty Name="servicio" Relationship="Self.FK_cliente_persona" FromRole="persona" ToRole="servicio" />
+  </EntityType>
+  <EntityType Name="servicio">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="descripcionServicio" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="cliente" Type="Int32" />
+    <Property Name="transportador" Type="Int32" />
+    <Property Name="carga" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="direccionCague" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="direccionEntrega" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="costo" Type="Int32" />
+    <NavigationProperty Name="persona" Relationship="Self.FK_cliente_persona" FromRole="servicio" ToRole="persona" />
+    <NavigationProperty Name="transportador1" Relationship="Self.FK_transportador_transportador" FromRole="servicio" ToRole="transportador" />
+  </EntityType>
+  <EntityType Name="transportador">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="cedula" Type="Int32" />
+    <Property Name="vehiculo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="estado" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="persona" Relationship="Self.FK__transport__cedul__4222D4EF" FromRole="transportador" ToRole="persona" />
+    <NavigationProperty Name="servicio" Relationship="Self.FK_transportador_transportador" FromRole="transportador" ToRole="servicio" />
+    <NavigationProperty Name="vehiculo1" Relationship="Self.FK__transport__vehic__4316F928" FromRole="transportador" ToRole="vehiculo" />
+  </EntityType>
+  <EntityType Name="usuario">
+    <Key>
+      <PropertyRef Name="usuario1" />
+    </Key>
+    <Property Name="usuario1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Rol" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="persona" Relationship="Self.FK__persona__usuario__3F466844" FromRole="usuario" ToRole="persona" />
+  </EntityType>
+  <EntityType Name="vehiculo">
+    <Key>
+      <PropertyRef Name="Placa" />
+    </Key>
+    <Property Name="Placa" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="numeroChasis" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="tecnomecanica" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="permisoCarga" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="capacidadCarga" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="descripcionVehiculo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="transportador" Relationship="Self.FK__transport__vehic__4316F928" FromRole="vehiculo" ToRole="transportador" />
+  </EntityType>
+  <Association Name="FK__persona__usuario__3F466844">
+    <End Role="usuario" Type="Self.usuario" Multiplicity="0..1" />
+    <End Role="persona" Type="Self.persona" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="usuario">
+        <PropertyRef Name="usuario1" />
+      </Principal>
+      <Dependent Role="persona">
+        <PropertyRef Name="usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__transport__cedul__4222D4EF">
+    <End Role="persona" Type="Self.persona" Multiplicity="0..1" />
+    <End Role="transportador" Type="Self.transportador" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="persona">
+        <PropertyRef Name="cedula" />
+      </Principal>
+      <Dependent Role="transportador">
+        <PropertyRef Name="cedula" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_cliente_persona">
+    <End Role="persona" Type="Self.persona" Multiplicity="0..1" />
+    <End Role="servicio" Type="Self.servicio" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="persona">
+        <PropertyRef Name="cedula" />
+      </Principal>
+      <Dependent Role="servicio">
+        <PropertyRef Name="cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_transportador_transportador">
+    <End Role="transportador" Type="Self.transportador" Multiplicity="0..1" />
+    <End Role="servicio" Type="Self.servicio" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="transportador">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="servicio">
+        <PropertyRef Name="transportador" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__transport__vehic__4316F928">
+    <End Role="vehiculo" Type="Self.vehiculo" Multiplicity="0..1" />
+    <End Role="transportador" Type="Self.transportador" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="vehiculo">
+        <PropertyRef Name="Placa" />
+      </Principal>
+      <Dependent Role="transportador">
+        <PropertyRef Name="vehiculo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ICarryAppDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="persona" EntityType="Self.persona" />
+    <EntitySet Name="servicio" EntityType="Self.servicio" />
+    <EntitySet Name="transportador" EntityType="Self.transportador" />
+    <EntitySet Name="usuario" EntityType="Self.usuario" />
+    <EntitySet Name="vehiculo" EntityType="Self.vehiculo" />
+    <AssociationSet Name="FK__persona__usuario__3F466844" Association="Self.FK__persona__usuario__3F466844">
+      <End Role="usuario" EntitySet="usuario" />
+      <End Role="persona" EntitySet="persona" />
+    </AssociationSet>
+    <AssociationSet Name="FK__transport__cedul__4222D4EF" Association="Self.FK__transport__cedul__4222D4EF">
+      <End Role="persona" EntitySet="persona" />
+      <End Role="transportador" EntitySet="transportador" />
+    </AssociationSet>
+    <AssociationSet Name="FK_cliente_persona" Association="Self.FK_cliente_persona">
+      <End Role="persona" EntitySet="persona" />
+      <End Role="servicio" EntitySet="servicio" />
+    </AssociationSet>
+    <AssociationSet Name="FK_transportador_transportador" Association="Self.FK_transportador_transportador">
+      <End Role="transportador" EntitySet="transportador" />
+      <End Role="servicio" EntitySet="servicio" />
+    </AssociationSet>
+    <AssociationSet Name="FK__transport__vehic__4316F928" Association="Self.FK__transport__vehic__4316F928">
+      <End Role="vehiculo" EntitySet="vehiculo" />
+      <End Role="transportador" EntitySet="transportador" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
