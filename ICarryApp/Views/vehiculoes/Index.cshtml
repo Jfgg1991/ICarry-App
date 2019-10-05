@@ -1,0 +1,57 @@
+﻿@model IEnumerable<ICarryApp.Models.vehiculo>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.numeroChasis)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tecnomecanica)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.permisoCarga)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.capacidadCarga)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.descripcionVehiculo)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.numeroChasis)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tecnomecanica)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.permisoCarga)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.capacidadCarga)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.descripcionVehiculo)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Placa }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Placa }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Placa })
+        </td>
+    </tr>
+}
+
+</table>

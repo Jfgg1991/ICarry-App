@@ -1,0 +1,58 @@
+﻿@model ICarryApp.Models.vehiculo
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>vehiculo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.numeroChasis)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.numeroChasis)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tecnomecanica)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tecnomecanica)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.permisoCarga)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.permisoCarga)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.capacidadCarga)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.capacidadCarga)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.descripcionVehiculo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.descripcionVehiculo)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Placa }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

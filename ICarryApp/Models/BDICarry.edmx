@@ -1,0 +1,387 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ICarryAppDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="persona">
+          <Key>
+            <PropertyRef Name="cedula" />
+          </Key>
+          <Property Name="cedula" Type="int" Nullable="false" />
+          <Property Name="nombre" Type="char" MaxLength="20" />
+          <Property Name="apellidos" Type="char" MaxLength="20" />
+          <Property Name="direccionPrincipal" Type="nchar" MaxLength="10" />
+          <Property Name="fechaNacimiento" Type="date" />
+          <Property Name="usuario" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="servicio">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descripcionServicio" Type="varchar" MaxLength="20" />
+          <Property Name="cliente" Type="int" />
+          <Property Name="transportador" Type="int" />
+          <Property Name="carga" Type="varchar" MaxLength="50" />
+          <Property Name="direccionCague" Type="varchar" MaxLength="50" />
+          <Property Name="direccionEntrega" Type="varchar" MaxLength="50" />
+          <Property Name="costo" Type="int" />
+        </EntityType>
+        <EntityType Name="transportador">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cedula" Type="int" />
+          <Property Name="vehiculo" Type="varchar" MaxLength="20" />
+          <Property Name="estado" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="usuario">
+          <Key>
+            <PropertyRef Name="usuario" />
+          </Key>
+          <Property Name="usuario" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="password" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Rol" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="vehiculo">
+          <Key>
+            <PropertyRef Name="Placa" />
+          </Key>
+          <Property Name="Placa" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="numeroChasis" Type="varchar" MaxLength="20" />
+          <Property Name="tecnomecanica" Type="varchar" MaxLength="20" />
+          <Property Name="permisoCarga" Type="varchar" MaxLength="20" />
+          <Property Name="capacidadCarga" Type="varchar" MaxLength="20" />
+          <Property Name="descripcionVehiculo" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <Association Name="FK__persona__usuario__3F466844">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="0..1" />
+          <End Role="persona" Type="Self.persona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="usuario" />
+            </Principal>
+            <Dependent Role="persona">
+              <PropertyRef Name="usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__transport__cedul__4222D4EF">
+          <End Role="persona" Type="Self.persona" Multiplicity="0..1" />
+          <End Role="transportador" Type="Self.transportador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="persona">
+              <PropertyRef Name="cedula" />
+            </Principal>
+            <Dependent Role="transportador">
+              <PropertyRef Name="cedula" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__transport__vehic__4316F928">
+          <End Role="vehiculo" Type="Self.vehiculo" Multiplicity="0..1" />
+          <End Role="transportador" Type="Self.transportador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="vehiculo">
+              <PropertyRef Name="Placa" />
+            </Principal>
+            <Dependent Role="transportador">
+              <PropertyRef Name="vehiculo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_cliente_persona">
+          <End Role="persona" Type="Self.persona" Multiplicity="0..1" />
+          <End Role="servicio" Type="Self.servicio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="persona">
+              <PropertyRef Name="cedula" />
+            </Principal>
+            <Dependent Role="servicio">
+              <PropertyRef Name="cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_transportador_transportador">
+          <End Role="transportador" Type="Self.transportador" Multiplicity="0..1" />
+          <End Role="servicio" Type="Self.servicio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="transportador">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="servicio">
+              <PropertyRef Name="transportador" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ICarryAppDBModelStoreContainer">
+          <EntitySet Name="persona" EntityType="Self.persona" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="servicio" EntityType="Self.servicio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="transportador" EntityType="Self.transportador" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="usuario" EntityType="Self.usuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vehiculo" EntityType="Self.vehiculo" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__persona__usuario__3F466844" Association="Self.FK__persona__usuario__3F466844">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="persona" EntitySet="persona" />
+          </AssociationSet>
+          <AssociationSet Name="FK__transport__cedul__4222D4EF" Association="Self.FK__transport__cedul__4222D4EF">
+            <End Role="persona" EntitySet="persona" />
+            <End Role="transportador" EntitySet="transportador" />
+          </AssociationSet>
+          <AssociationSet Name="FK__transport__vehic__4316F928" Association="Self.FK__transport__vehic__4316F928">
+            <End Role="vehiculo" EntitySet="vehiculo" />
+            <End Role="transportador" EntitySet="transportador" />
+          </AssociationSet>
+          <AssociationSet Name="FK_cliente_persona" Association="Self.FK_cliente_persona">
+            <End Role="persona" EntitySet="persona" />
+            <End Role="servicio" EntitySet="servicio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_transportador_transportador" Association="Self.FK_transportador_transportador">
+            <End Role="transportador" EntitySet="transportador" />
+            <End Role="servicio" EntitySet="servicio" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ICarryAppDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="persona">
+          <Key>
+            <PropertyRef Name="cedula" />
+          </Key>
+          <Property Name="cedula" Type="Int32" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="apellidos" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="direccionPrincipal" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="fechaNacimiento" Type="DateTime" Precision="0" />
+          <Property Name="usuario" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="usuario1" Relationship="Self.FK__persona__usuario__3F466844" FromRole="persona" ToRole="usuario" />
+          <NavigationProperty Name="transportador" Relationship="Self.FK__transport__cedul__4222D4EF" FromRole="persona" ToRole="transportador" />
+          <NavigationProperty Name="servicio" Relationship="Self.FK_cliente_persona" FromRole="persona" ToRole="servicio" />
+        </EntityType>
+        <EntityType Name="servicio">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcionServicio" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="cliente" Type="Int32" />
+          <Property Name="transportador" Type="Int32" />
+          <Property Name="carga" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="direccionCague" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="direccionEntrega" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="costo" Type="Int32" />
+          <NavigationProperty Name="persona" Relationship="Self.FK_cliente_persona" FromRole="servicio" ToRole="persona" />
+          <NavigationProperty Name="transportador1" Relationship="Self.FK_transportador_transportador" FromRole="servicio" ToRole="transportador" />
+        </EntityType>
+        <EntityType Name="transportador">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cedula" Type="Int32" />
+          <Property Name="vehiculo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="estado" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="persona" Relationship="Self.FK__transport__cedul__4222D4EF" FromRole="transportador" ToRole="persona" />
+          <NavigationProperty Name="servicio" Relationship="Self.FK_transportador_transportador" FromRole="transportador" ToRole="servicio" />
+          <NavigationProperty Name="vehiculo1" Relationship="Self.FK__transport__vehic__4316F928" FromRole="transportador" ToRole="vehiculo" />
+        </EntityType>
+        <EntityType Name="usuario">
+          <Key>
+            <PropertyRef Name="usuario1" />
+          </Key>
+          <Property Name="usuario1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Rol" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="persona" Relationship="Self.FK__persona__usuario__3F466844" FromRole="usuario" ToRole="persona" />
+        </EntityType>
+        <EntityType Name="vehiculo">
+          <Key>
+            <PropertyRef Name="Placa" />
+          </Key>
+          <Property Name="Placa" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="numeroChasis" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="tecnomecanica" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="permisoCarga" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="capacidadCarga" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="descripcionVehiculo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="transportador" Relationship="Self.FK__transport__vehic__4316F928" FromRole="vehiculo" ToRole="transportador" />
+        </EntityType>
+        <Association Name="FK__persona__usuario__3F466844">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="0..1" />
+          <End Role="persona" Type="Self.persona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="usuario1" />
+            </Principal>
+            <Dependent Role="persona">
+              <PropertyRef Name="usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__transport__cedul__4222D4EF">
+          <End Role="persona" Type="Self.persona" Multiplicity="0..1" />
+          <End Role="transportador" Type="Self.transportador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="persona">
+              <PropertyRef Name="cedula" />
+            </Principal>
+            <Dependent Role="transportador">
+              <PropertyRef Name="cedula" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_cliente_persona">
+          <End Role="persona" Type="Self.persona" Multiplicity="0..1" />
+          <End Role="servicio" Type="Self.servicio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="persona">
+              <PropertyRef Name="cedula" />
+            </Principal>
+            <Dependent Role="servicio">
+              <PropertyRef Name="cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_transportador_transportador">
+          <End Role="transportador" Type="Self.transportador" Multiplicity="0..1" />
+          <End Role="servicio" Type="Self.servicio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="transportador">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="servicio">
+              <PropertyRef Name="transportador" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__transport__vehic__4316F928">
+          <End Role="vehiculo" Type="Self.vehiculo" Multiplicity="0..1" />
+          <End Role="transportador" Type="Self.transportador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="vehiculo">
+              <PropertyRef Name="Placa" />
+            </Principal>
+            <Dependent Role="transportador">
+              <PropertyRef Name="vehiculo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ICarryAppDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="persona" EntityType="Self.persona" />
+          <EntitySet Name="servicio" EntityType="Self.servicio" />
+          <EntitySet Name="transportador" EntityType="Self.transportador" />
+          <EntitySet Name="usuario" EntityType="Self.usuario" />
+          <EntitySet Name="vehiculo" EntityType="Self.vehiculo" />
+          <AssociationSet Name="FK__persona__usuario__3F466844" Association="Self.FK__persona__usuario__3F466844">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="persona" EntitySet="persona" />
+          </AssociationSet>
+          <AssociationSet Name="FK__transport__cedul__4222D4EF" Association="Self.FK__transport__cedul__4222D4EF">
+            <End Role="persona" EntitySet="persona" />
+            <End Role="transportador" EntitySet="transportador" />
+          </AssociationSet>
+          <AssociationSet Name="FK_cliente_persona" Association="Self.FK_cliente_persona">
+            <End Role="persona" EntitySet="persona" />
+            <End Role="servicio" EntitySet="servicio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_transportador_transportador" Association="Self.FK_transportador_transportador">
+            <End Role="transportador" EntitySet="transportador" />
+            <End Role="servicio" EntitySet="servicio" />
+          </AssociationSet>
+          <AssociationSet Name="FK__transport__vehic__4316F928" Association="Self.FK__transport__vehic__4316F928">
+            <End Role="vehiculo" EntitySet="vehiculo" />
+            <End Role="transportador" EntitySet="transportador" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ICarryAppDBModelStoreContainer" CdmEntityContainer="ICarryAppDBEntities">
+          <EntitySetMapping Name="persona">
+            <EntityTypeMapping TypeName="ICarryAppDBModel.persona">
+              <MappingFragment StoreEntitySet="persona">
+                <ScalarProperty Name="cedula" ColumnName="cedula" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellidos" ColumnName="apellidos" />
+                <ScalarProperty Name="direccionPrincipal" ColumnName="direccionPrincipal" />
+                <ScalarProperty Name="fechaNacimiento" ColumnName="fechaNacimiento" />
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="servicio">
+            <EntityTypeMapping TypeName="ICarryAppDBModel.servicio">
+              <MappingFragment StoreEntitySet="servicio">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="descripcionServicio" ColumnName="descripcionServicio" />
+                <ScalarProperty Name="cliente" ColumnName="cliente" />
+                <ScalarProperty Name="transportador" ColumnName="transportador" />
+                <ScalarProperty Name="carga" ColumnName="carga" />
+                <ScalarProperty Name="direccionCague" ColumnName="direccionCague" />
+                <ScalarProperty Name="direccionEntrega" ColumnName="direccionEntrega" />
+                <ScalarProperty Name="costo" ColumnName="costo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="transportador">
+            <EntityTypeMapping TypeName="ICarryAppDBModel.transportador">
+              <MappingFragment StoreEntitySet="transportador">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="cedula" ColumnName="cedula" />
+                <ScalarProperty Name="vehiculo" ColumnName="vehiculo" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usuario">
+            <EntityTypeMapping TypeName="ICarryAppDBModel.usuario">
+              <MappingFragment StoreEntitySet="usuario">
+                <ScalarProperty Name="usuario1" ColumnName="usuario" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="Rol" ColumnName="Rol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vehiculo">
+            <EntityTypeMapping TypeName="ICarryAppDBModel.vehiculo">
+              <MappingFragment StoreEntitySet="vehiculo">
+                <ScalarProperty Name="Placa" ColumnName="Placa" />
+                <ScalarProperty Name="numeroChasis" ColumnName="numeroChasis" />
+                <ScalarProperty Name="tecnomecanica" ColumnName="tecnomecanica" />
+                <ScalarProperty Name="permisoCarga" ColumnName="permisoCarga" />
+                <ScalarProperty Name="capacidadCarga" ColumnName="capacidadCarga" />
+                <ScalarProperty Name="descripcionVehiculo" ColumnName="descripcionVehiculo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

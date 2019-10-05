@@ -1,0 +1,64 @@
+﻿@model ICarryApp.Models.vehiculo
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>vehiculo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.numeroChasis)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.numeroChasis)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tecnomecanica)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tecnomecanica)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.permisoCarga)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.permisoCarga)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.capacidadCarga)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.capacidadCarga)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.descripcionVehiculo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.descripcionVehiculo)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
